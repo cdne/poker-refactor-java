@@ -18,37 +18,35 @@ public class PokerClient {
     }
 
     public boolean highestCardIsMine(String p1, String p2, String p3, String p4, String p5) {
-        Card hc = new Card("s2");
-        List<Card> o = new ArrayList<Card>();
-        List<Card> m = new ArrayList<Card>();
-        o.add(new Card(p1.toUpperCase()));
-        o.add(new Card(p2.toUpperCase()));
-        o.add(new Card(p3.toUpperCase()));
-        o.add(new Card(p4.toUpperCase()));
-        o.add(new Card(p5.toUpperCase()));
-        m.add(card1);
-        m.add(card2);
-        m.add(card3);
-        m.add(card4);
-        m.add(card5);
+        Card highCard = new Card("s2");
+        List<Card> firstPlayerCards = new ArrayList<>();
+        List<Card> secondPlayerCards = new ArrayList<>();
+        firstPlayerCards.add(new Card(p1.toUpperCase()));
+        firstPlayerCards.add(new Card(p2.toUpperCase()));
+        firstPlayerCards.add(new Card(p3.toUpperCase()));
+        firstPlayerCards.add(new Card(p4.toUpperCase()));
+        firstPlayerCards.add(new Card(p5.toUpperCase()));
+        secondPlayerCards.add(card1);
+        secondPlayerCards.add(card2);
+        secondPlayerCards.add(card3);
+        secondPlayerCards.add(card4);
+        secondPlayerCards.add(card5);
 
-        for (int i = 0; i < o.size(); i++) {
-            Card mc = m.get(i);
-            for (int j = 0; j < o.size(); j++) {
-                Card oc = o.get(j);
-                if (oc.getValue() >= mc.getValue()) {
-                    if (oc.getValue() >= hc.getValue()) {
-                        hc = oc;
-                    }
+
+        for(int i = 0; i < firstPlayerCards.size(); i++){
+            Card secondPlayerCard = secondPlayerCards.get(i);
+            for (Card firstPlayerCard : firstPlayerCards) {
+                if (firstPlayerCard.getValue() >= secondPlayerCard.getValue() &&
+                        secondPlayerCard.getValue() >= highCard.getValue()) {
+                    highCard = firstPlayerCard;
                 } else {
-                    if (mc.getValue() > hc.getValue()) {
-                        hc = mc;
-                    }
+                    highCard = secondPlayerCard;
                 }
             }
         }
 
-        return m.contains(hc);
+
+        return secondPlayerCards.contains(highCard);
     }
 
 }
